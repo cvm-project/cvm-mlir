@@ -22,22 +22,20 @@
 
 using namespace mlir;
 
-#ifdef SANDBOX_ENABLE_ITERATORS
+#ifdef SANDBOX_ENABLE_CVM
 #include "iterators/Conversion/Passes.h"
-#include "iterators/Dialect/Iterators/IR/Iterators.h"
-#include "iterators/Dialect/Tabular/IR/Tabular.h"
+#include "iterators/Dialect/Cvm/IR/Cvm.h"
 
-static void registerIteratorDialects(DialectRegistry &registry) {
+static void registerCvmDialects(DialectRegistry &registry) {
   registry.insert<
       // clang-format off
-      mlir::iterators::IteratorsDialect,
-      mlir::iterators::TabularDialect
+      mlir::iterators::CvmDialect,
       // clang-format on
       >();
-  registerIteratorsConversionPasses();
+  registerCvmConversionPasses();
 }
 #else
-static void registerIteratorDialects(DialectRegistry &registry) {}
+static void registerCvmDialects(DialectRegistry &registry) {}
 #endif
 
 int main(int argc, char **argv) {
@@ -45,7 +43,7 @@ int main(int argc, char **argv) {
 
   DialectRegistry registry;
   registerAllDialects(registry);
-  registerIteratorDialects(registry);
+  registerCvmDialects(registry);
 
   return mlir::failed(mlir::MlirLspServerMain(argc, argv, registry));
 }
