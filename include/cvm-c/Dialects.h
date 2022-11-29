@@ -1,4 +1,4 @@
-//===- Passes.h - CAPI for passes ---------------------------------*- C -*-===//
+//===- Dialects.h - CAPI for dialects -----------------------------*- C -*-===//
 //
 // This file is licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,21 +6,32 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef ITERATORS_C_PASSES_H
-#define ITERATORS_C_PASSES_H
+#ifndef CVM_C_DIALECTS_H
+#define CVM_C_DIALECTS_H
+
+#include "mlir-c/IR.h"
+#include "mlir-c/Registration.h"
+#include "mlir-c/Support.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 //===----------------------------------------------------------------------===//
-// Iterators passes
+// CVM dialect
 //===----------------------------------------------------------------------===//
 
-#include "iterators/Conversion/Passes.capi.h.inc" // IWYU pragma: export
+MLIR_DECLARE_CAPI_DIALECT_REGISTRATION(Cvm, cvm);
+
+MLIR_CAPI_EXPORTED
+bool mlirTypeIsACvmStreamType(MlirType type);
+
+MLIR_CAPI_EXPORTED
+MlirType mlirCvmStreamTypeGet(MlirContext context, MlirType elementType);
+
 
 #ifdef __cplusplus
 }
 #endif
 
-#endif // ITERATORS_C_PASSES_H
+#endif // CVM_C_DIALECTS_H

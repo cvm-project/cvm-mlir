@@ -1,4 +1,4 @@
-//===-- TabularInterfaces.td - Tabular interfaces ----------*- tablegen -*-===//
+//===-- CvmInterfaces.td - Cvm interfaces -------*- tablegen -*-===//
 //
 // Licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,9 +6,13 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef TABULAR_DIALECT_TABULAR_IR_TABULARINTERFACES
-#define TABULAR_DIALECT_TABULAR_IR_TABULARINTERFACES
+#ifndef CVM_DIALECT_CVM_IR_CVMINTERFACES
+#define CVM_DIALECT_CVM_IR_CVMINTERFACES
 
 include "mlir/IR/OpBase.td"
 
-#endif // TABULAR_DIALECT_TABULAR_IR_TABULARINTERFACES
+def Cvm_CvmOpInterface : OpInterface<"CvmOpInterface"> {
+  let description = [{Cvm op interface.}];
+}
+
+#endif // CVM_DIALECT_CVM_IR_CVMINTERFACES
