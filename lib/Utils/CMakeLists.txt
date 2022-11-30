@@ -1,4 +1,4 @@
-add_mlir_library(IteratorsUtils
+add_mlir_library(CvmUtils
   MLIRSupport.cpp
   NameAssigner.cpp
 

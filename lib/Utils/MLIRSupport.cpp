@@ -6,7 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "iterators/Utils/MLIRSupport.h"
+#include "cvm/Utils/MLIRSupport.h"
 
 #include "mlir/Dialect/LLVMIR/LLVMDialect.h"
 #include "mlir/Dialect/SCF/SCF.h"

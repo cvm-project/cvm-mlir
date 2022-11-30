@@ -1,3 +1,0 @@
-add_subdirectory(IteratorsToLLVM)
-add_subdirectory(StatesToLLVM)
-add_subdirectory(TabularToLLVM)

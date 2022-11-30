@@ -1,4 +1,4 @@
-//===-- Iterators.cpp - Iterators dialect -----------------------*- C++ -*-===//
+//===-- Cvm.cpp - Cvm dialect -----------------------*- C++ -*-===//
 //
 // Licensed under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,8 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "iterators/Dialect/Iterators/IR/Iterators.h"
-#include "iterators/Dialect/Tabular/IR/Tabular.h"
+#include "cvm/Dialect/Cvm/IR/Cvm.h"
 
 #include "mlir/Dialect/LLVMIR/LLVMTypes.h"
 #include "mlir/IR/DialectImplementation.h"
@@ -15,34 +14,34 @@
 #include "llvm/ADT/TypeSwitch.h"
 
 using namespace mlir;
-using namespace mlir::iterators;
+using namespace mlir::cvm;
 
 //===----------------------------------------------------------------------===//
-// Iterators dialect
+// Cvm dialect
 //===----------------------------------------------------------------------===//
 
-#include "iterators/Dialect/Iterators/IR/IteratorsOpsDialect.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmOpsDialect.cpp.inc"
 
-void IteratorsDialect::initialize() {
+void CvmDialect::initialize() {
 #define GET_OP_LIST
   addOperations<
-#include "iterators/Dialect/Iterators/IR/IteratorsOps.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmOps.cpp.inc"
       >();
   addTypes<
 #define GET_TYPEDEF_LIST
-#include "iterators/Dialect/Iterators/IR/IteratorsOpsTypes.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmOpsTypes.cpp.inc"
       >();
 }
 
 //===----------------------------------------------------------------------===//
-// Iterators interfaces
+// Cvm interfaces
 //===----------------------------------------------------------------------===//
 
-#include "iterators/Dialect/Iterators/IR/IteratorsOpInterfaces.cpp.inc"
-#include "iterators/Dialect/Iterators/IR/IteratorsTypeInterfaces.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmOpInterfaces.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmTypeInterfaces.cpp.inc"
 
 //===----------------------------------------------------------------------===//
-// Iterators operations
+// Cvm operations
 //===----------------------------------------------------------------------===//
 
 static ParseResult parseInsertValueType(AsmParser & /*parser*/, Type &valueType,
@@ -58,7 +57,7 @@ static void printInsertValueType(AsmPrinter & /*printer*/, Operation * /*op*/,
                                  IntegerAttr /*indexAttr*/) {}
 
 #define GET_OP_CLASSES
-#include "iterators/Dialect/Iterators/IR/IteratorsOps.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmOps.cpp.inc"
 
 LogicalResult ExtractValueOp::inferReturnTypes(
     MLIRContext * /*context*/, Optional<Location> location, ValueRange operands,
@@ -73,8 +72,8 @@ LogicalResult ExtractValueOp::inferReturnTypes(
 }
 
 //===----------------------------------------------------------------------===//
-// Iterators types
+// Cvm types
 //===----------------------------------------------------------------------===//
 
 #define GET_TYPEDEF_CLASSES
-#include "iterators/Dialect/Iterators/IR/IteratorsOpsTypes.cpp.inc"
+#include "cvm/Dialect/Cvm/IR/CvmOpsTypes.cpp.inc"

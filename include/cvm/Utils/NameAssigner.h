@@ -6,8 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
-#ifndef ITERATORS_UTILS_NAMEASSIGNER_H
-#define ITERATORS_UTILS_NAMEASSIGNER_H
+#ifndef CVM_UTILS_NAMEASSIGNER_H
+#define CVM_UTILS_NAMEASSIGNER_H
 
 #include "mlir/IR/BuiltinOps.h"
 #include "mlir/Support/LLVM.h"
@@ -15,7 +15,7 @@
 namespace mlir {
 
 class ModuleOp;
-namespace iterators {
+namespace cvm {
 
 /// Pre-assigns unique symbol names in the given module. Uniqueness is
 /// guaranteed among all symbols already existing in the module and those pre-
@@ -38,7 +38,7 @@ private:
   uint64_t uniqueNumber = 0;
 };
 
-} // namespace iterators
+} // namespace cvm
 } // namespace mlir
 
-#endif // ITERATORS_UTILS_NAMEASSIGNER_H
+#endif // CVM_UTILS_NAMEASSIGNER_H
