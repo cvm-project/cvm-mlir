@@ -11,7 +11,7 @@ if(SANDBOX_ENABLE_ALP)
   list(APPEND dialect_libs ExperimentalAlpTransforms)
 endif()
 
-if(SANDBOX_ENABLE_ITERATORS)
+if(SANDBOX_ENABLE_CVM)
   list(APPEND dialect_libs MLIRCvm)
 endif()
 

@@ -24,19 +24,18 @@
 using namespace mlir;
 
 #ifdef SANDBOX_ENABLE_CVM
-#include "iterators/Conversion/Passes.h"
-#include "iterators/Dialect/Cvm/IR/Cvm.h"
+#include "cvm/Dialect/Cvm/IR/Cvm.h"
 
-static void registerIteratorDialects(DialectRegistry &registry) {
+static void registerCvmDialects(DialectRegistry &registry) {
   registry.insert<
       // clang-format off
-      mlir::iterators::IteratorsDialect,
+      mlir::cvm::CvmDialect,
       // clang-format on
       >();
-  registerIteratorsConversionPasses();
+  registerCvmConversionPasses();
 }
 #else
-static void registerIteratorDialects(DialectRegistry &registry) {}
+static void registerCvmDialects(DialectRegistry &registry) {}
 #endif
 
 #ifdef SANDBOX_ENABLE_ALP
@@ -62,7 +61,7 @@ int main(int argc, char **argv) {
   DialectRegistry registry;
   registerAllDialects(registry);
   registry.insert<vector_ext::VectorExtDialect>();
-  registerIteratorDialects(registry);
+  registerCvmDialects(registry);
 
   return failed(MlirOptMain(argc, argv, "MLIR modular optimizer driver\n",
                             registry,
