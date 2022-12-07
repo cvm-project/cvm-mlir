@@ -4,6 +4,5 @@
 # See https://llvm.org/LICENSE.txt for license information.
 # SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-from ._iterators_ops_gen import *
-from .._mlir_libs._iteratorsDialects.iterators import *
-from .._mlir_libs import _mlirIteratorsPasses as _cextIteratorsPasses
+from ._cvm_ops_gen import *
+from .._mlir_libs._cvmDialects.cvm import *

@@ -4,10 +4,10 @@
 // See https://llvm.org/LICENSE.txt for license information.
 // SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception
 
-#ifndef PYTHON_BINDINGS_ITERATORS_OPS
-#define PYTHON_BINDINGS_ITERATORS_OPS
+#ifndef PYTHON_BINDINGS_CVM_OPS
+#define PYTHON_BINDINGS_CVM_OPS
 
 include "mlir/Bindings/Python/Attributes.td"
-include "iterators/Dialect/Iterators/IR/IteratorsOps.td"
+include "cvm/Dialect/Cvm/IR/CvmOps.td"
 
-#endif // PYTHON_BINDINGS_ITERATORS_OPS
+#endif // PYTHON_BINDINGS_CVM_OPS
