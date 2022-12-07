@@ -10,7 +10,7 @@ import lit.llvm
 lit.llvm.initialize(lit_config, config)
 
 # name: The name of this test suite.
-config.name = "Iterators MLIR"
+config.name = "Cvm MLIR"
 
 config.test_format = lit.formats.ShTest(execute_external=True)
 
