@@ -1,55 +1,37 @@
 include(AddMLIRPython)
 
-# Specifies that all MLIR packages are co-located under the `mlir_iterators`
+# Specifies that all MLIR packages are co-located under the `mlir_cvm`
 # top level package (the API has been embedded in a relocatable way).
-add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=mlir_iterators.")
+add_compile_definitions("MLIR_PYTHON_PACKAGE_PREFIX=mlir_cvm.")
 
 # ###############################################################################
 # Sources
 # ###############################################################################
-declare_mlir_python_sources(IteratorsPythonSources)
-declare_mlir_python_sources(IteratorsPythonSources.Dialects
-  ADD_TO_PARENT IteratorsPythonSources)
+declare_mlir_python_sources(CvmPythonSources)
+declare_mlir_python_sources(CvmPythonSources.Dialects
+  ADD_TO_PARENT CvmPythonSources)
 
 declare_mlir_dialect_python_bindings(
-  ADD_TO_PARENT IteratorsPythonSources.Dialects
-  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_iterators"
-  TD_FILE dialects/IteratorsOps.td
+  ADD_TO_PARENT CvmPythonSources.Dialects
+  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_cvm"
+  TD_FILE dialects/CvmOps.td
   SOURCES
-  dialects/iterators.py
-  DIALECT_NAME iterators
+  dialects/cvm.py
+  DIALECT_NAME cvm
 )
 
-declare_mlir_dialect_python_bindings(
-  ADD_TO_PARENT IteratorsPythonSources.Dialects
-  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_iterators"
-  TD_FILE dialects/TabularOps.td
+declare_mlir_python_extension(CvmPythonSources.DialectExtension
+  MODULE_NAME _cvmDialects
+  ADD_TO_PARENT CvmPythonSources
   SOURCES
-  dialects/tabular.py
-  DIALECT_NAME tabular
-)
-
-declare_mlir_python_extension(IteratorsPythonSources.DialectExtension
-  MODULE_NAME _iteratorsDialects
-  ADD_TO_PARENT IteratorsPythonSources
-  SOURCES
-  IteratorsDialects.cpp
+  CvmDialects.cpp
   EMBED_CAPI_LINK_LIBS
-  IteratorsCAPI
+  CvmCAPI
 )
 
-declare_mlir_python_extension(IteratorsPythonSources.PassesExtension
-  MODULE_NAME _mlirIteratorsPasses
-  ADD_TO_PARENT IteratorsPythonSources
-  SOURCES
-  IteratorsPasses.cpp
-  EMBED_CAPI_LINK_LIBS
-  IteratorsCAPI
-)
-
-declare_mlir_python_sources(IteratorsPythonSources.ExecutionEngine
-  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_iterators"
-  ADD_TO_PARENT IteratorsPythonSources
+declare_mlir_python_sources(CvmPythonSources.ExecutionEngine
+  ROOT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/mlir_cvm"
+  ADD_TO_PARENT CvmPythonSources
   SOURCES_GLOB
     runtime/*.py
 )
@@ -57,13 +39,13 @@ declare_mlir_python_sources(IteratorsPythonSources.ExecutionEngine
 # ###############################################################################
 # Common CAPI
 # ###############################################################################
-add_mlir_python_common_capi_library(IteratorsPythonCAPI
-  INSTALL_COMPONENT IteratorsPythonModules
-  INSTALL_DESTINATION python_packages/iterators/mlir_iterators/_mlir_libs
-  OUTPUT_DIRECTORY "${IREE_LLVM_SANDBOX_BINARY_DIR}/python_packages/mlir_iterators/_mlir_libs"
+add_mlir_python_common_capi_library(CvmPythonCAPI
+  INSTALL_COMPONENT CvmPythonModules
+  INSTALL_DESTINATION python_packages/cvm/mlir_cvm/_mlir_libs
+  OUTPUT_DIRECTORY "${IREE_LLVM_SANDBOX_BINARY_DIR}/python_packages/mlir_cvm/_mlir_libs"
   RELATIVE_INSTALL_ROOT "../../../.."
   DECLARED_SOURCES
-  IteratorsPythonSources
+  CvmPythonSources
   MLIRPythonExtension.AllPassesRegistration
   MLIRPythonSources.Core
   MLIRPythonSources.ExecutionEngine
@@ -73,15 +55,15 @@ add_mlir_python_common_capi_library(IteratorsPythonCAPI
 # ###############################################################################
 # Instantiation of all Python modules
 # ###############################################################################
-add_mlir_python_modules(IteratorsPythonModules
-  ROOT_PREFIX "${IREE_LLVM_SANDBOX_BINARY_DIR}/python_packages/mlir_iterators"
-  INSTALL_PREFIX "python_packages/mlir_iterators"
+add_mlir_python_modules(CvmPythonModules
+  ROOT_PREFIX "${IREE_LLVM_SANDBOX_BINARY_DIR}/python_packages/mlir_cvm"
+  INSTALL_PREFIX "python_packages/mlir_cvm"
   DECLARED_SOURCES
-  IteratorsPythonSources
+  CvmPythonSources
   MLIRPythonExtension.AllPassesRegistration
   MLIRPythonSources.Core
   MLIRPythonSources.ExecutionEngine
   MLIRPythonSources.Passes
   COMMON_CAPI_LINK_LIBS
-  IteratorsPythonCAPI
+  CvmPythonCAPI
 )
