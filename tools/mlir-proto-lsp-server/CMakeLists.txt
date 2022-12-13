@@ -6,14 +6,8 @@ add_llvm_executable(mlir-proto-lsp-server
 )
 
 list(APPEND dialect_libs MLIRVectorExt MLIRVectorExtTransforms)
-
-if(SANDBOX_ENABLE_ALP)
-  list(APPEND dialect_libs ExperimentalAlpTransforms)
-endif()
-
-if(SANDBOX_ENABLE_ITERATORS)
-  list(APPEND dialect_libs MLIRCvm)
-endif()
+list(APPEND dialect_libs ExperimentalAlpTransforms)
+list(APPEND dialect_libs MLIRCvm)
 
 target_link_libraries(mlir-proto-lsp-server
   PRIVATE

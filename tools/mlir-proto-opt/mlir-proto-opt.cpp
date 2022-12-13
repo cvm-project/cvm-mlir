@@ -11,7 +11,6 @@
 //
 //===----------------------------------------------------------------------===//
 
-#include "Dialect/VectorExt/VectorExtDialect.h"
 #include "mlir/IR/Dialect.h"
 #include "mlir/InitAllDialects.h"
 #include "mlir/InitAllPasses.h"
@@ -23,47 +22,24 @@
 
 using namespace mlir;
 
-#ifdef SANDBOX_ENABLE_CVM
 #include "cvm/Dialect/Cvm/IR/Cvm.h"
 
 static void registerCvmDialects(DialectRegistry &registry) {
   registry.insert<
       // clang-format off
-      mlir::cvm::CvmDialect,
+      mlir::cvm::CvmDialect
       // clang-format on
       >();
-  registerCvmConversionPasses();
 }
-#else
-static void registerCvmDialects(DialectRegistry &registry) {}
-#endif
-
-#ifdef SANDBOX_ENABLE_ALP
-#include "alp/Transforms/Passes.h"
-static void registerALPPasses() { registerALPPasses(); }
-#else
-static void registerALPPasses() {}
-#endif
-
-namespace mlir {
-namespace test_ext {
-void registerTestVectorMaskingUtils();
-} // namespace test_ext
-} // namespace mlir
-
+  
 int main(int argc, char **argv) {
   llvm::InitLLVM y(argc, argv);
-  registerAllPasses();
-  registerALPPasses();
-
-  mlir::test_ext::registerTestVectorMaskingUtils();
 
   DialectRegistry registry;
-  registerAllDialects(registry);
-  registry.insert<vector_ext::VectorExtDialect>();
+  // registerAllDialects(registry);
   registerCvmDialects(registry);
 
   return failed(MlirOptMain(argc, argv, "MLIR modular optimizer driver\n",
-                            registry,
+                              registry,
                             /*preloadDialectsInContext=*/true));
 }

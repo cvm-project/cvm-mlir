@@ -5,15 +5,7 @@ add_llvm_executable(mlir-proto-opt
   mlir-proto-opt.cpp
 )
 
-list(APPEND dialect_libs MLIRVectorExt MLIRVectorExtTransforms)
-
-if(SANDBOX_ENABLE_ALP)
-  list(APPEND dialect_libs ExperimentalAlpTransforms)
-endif()
-
-if(SANDBOX_ENABLE_CVM)
-  list(APPEND dialect_libs MLIRCvm)
-endif()
+list(APPEND dialect_libs MLIRCvm)
 
 target_link_libraries(mlir-proto-opt
   PRIVATE
@@ -31,8 +23,6 @@ target_link_libraries(mlir-proto-opt
   MLIRTransformUtils
   MLIRSupport
   MLIRIR
-
-  MLIRVectorExtTestPasses
 )
 
 mlir_check_all_link_libraries(mlir-proto-opt)

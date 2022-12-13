@@ -19,24 +19,18 @@
 #include "mlir/InitAllPasses.h"
 #include "mlir/Support/LogicalResult.h"
 #include "mlir/Tools/mlir-lsp-server/MlirLspServerMain.h"
+#include "cvm/Dialect/Cvm/IR/Cvm.h"
 
 using namespace mlir;
 
-#ifdef SANDBOX_ENABLE_CVM
-#include "iterators/Conversion/Passes.h"
-#include "iterators/Dialect/Cvm/IR/Cvm.h"
 
 static void registerCvmDialects(DialectRegistry &registry) {
   registry.insert<
       // clang-format off
-      mlir::iterators::CvmDialect,
+      mlir::cvm::CvmDialect
       // clang-format on
       >();
-  registerCvmConversionPasses();
 }
-#else
-static void registerCvmDialects(DialectRegistry &registry) {}
-#endif
 
 int main(int argc, char **argv) {
   registerAllPasses();

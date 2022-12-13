@@ -17,9 +17,9 @@ include "mlir/IR/BuiltinAttributes.td"
 include "mlir/IR/OpBase.td"
 
 // Base class for Cvm dialect types.
-class Cvm_Type<string name, string typeMnemonic, list<Trait> traits = []>
-    : TypeDef<Cvm_Dialect, name, traits> {
-  let mnemonic = typeMnemonic;
-}
+// class Cvm_Type<string name, string typeMnemonic, list<Trait> traits = []>
+//     : TypeDef<Cvm_Dialect, name, traits> {
+//   let mnemonic = typeMnemonic;
+// }
 
 #endif // CVM_DIALECT_CVM_IR_CVMTYPES

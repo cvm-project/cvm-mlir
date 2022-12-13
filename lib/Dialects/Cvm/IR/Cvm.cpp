@@ -7,7 +7,6 @@
 //===----------------------------------------------------------------------===//
 
 #include "cvm/Dialect/Cvm/IR/Cvm.h"
-
 #include "mlir/Dialect/LLVMIR/LLVMTypes.h"
 #include "mlir/IR/DialectImplementation.h"
 #include "mlir/Support/LogicalResult.h"
@@ -27,10 +26,10 @@ void CvmDialect::initialize() {
   addOperations<
 #include "cvm/Dialect/Cvm/IR/CvmOps.cpp.inc"
       >();
-  addTypes<
-#define GET_TYPEDEF_LIST
-#include "cvm/Dialect/Cvm/IR/CvmOpsTypes.cpp.inc"
-      >();
+//  addTypes<
+// #define GET_TYPEDEF_LIST
+// #include "cvm/Dialect/Cvm/IR/CvmOpsTypes.cpp.inc"
+//       >();
 }
 
 //===----------------------------------------------------------------------===//
@@ -44,32 +43,8 @@ void CvmDialect::initialize() {
 // Cvm operations
 //===----------------------------------------------------------------------===//
 
-static ParseResult parseInsertValueType(AsmParser & /*parser*/, Type &valueType,
-                                        Type stateType, IntegerAttr indexAttr) {
-  int64_t index = indexAttr.getValue().getSExtValue();
-  auto castedStateType = stateType.cast<StateType>();
-  valueType = castedStateType.getFieldTypes()[index];
-  return success();
-}
-
-static void printInsertValueType(AsmPrinter & /*printer*/, Operation * /*op*/,
-                                 Type /*valueType*/, Type /*stateType*/,
-                                 IntegerAttr /*indexAttr*/) {}
-
 #define GET_OP_CLASSES
 #include "cvm/Dialect/Cvm/IR/CvmOps.cpp.inc"
-
-LogicalResult ExtractValueOp::inferReturnTypes(
-    MLIRContext * /*context*/, Optional<Location> location, ValueRange operands,
-    DictionaryAttr attributes, RegionRange regions,
-    SmallVectorImpl<Type> &inferredReturnTypes) {
-  auto stateType = operands[0].getType().cast<StateType>();
-  auto indexAttr = attributes.getAs<IntegerAttr>("index");
-  int64_t index = indexAttr.getValue().getSExtValue();
-  Type fieldType = stateType.getFieldTypes()[index];
-  inferredReturnTypes.assign({fieldType});
-  return success();
-}
 
 //===----------------------------------------------------------------------===//
 // Cvm types
