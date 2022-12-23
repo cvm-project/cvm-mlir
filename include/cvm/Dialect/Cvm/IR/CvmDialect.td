@@ -11,6 +11,7 @@
 
 include "mlir/IR/OpBase.td"
 
+
 //===----------------------------------------------------------------------===//
 // Dialect definition
 //===----------------------------------------------------------------------===//
@@ -18,7 +19,7 @@ include "mlir/IR/OpBase.td"
 def Cvm_Dialect : Dialect {
   let name = "cvm";
   let cppNamespace = "::mlir::cvm";
-  let summary = "Dialect mirroring the cvm IR.";
+  let summary = "Dialect mirroring the CVM IR.";
   let description = [{
     Dialect that has an 1-1 correspondence with CVM to allow for easier implementation of optimization passes in the MLIR ecosystem.
   }];

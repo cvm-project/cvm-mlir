@@ -5,8 +5,6 @@ add_llvm_executable(mlir-proto-lsp-server
   mlir-proto-lsp-server.cpp
 )
 
-list(APPEND dialect_libs MLIRVectorExt MLIRVectorExtTransforms)
-list(APPEND dialect_libs ExperimentalAlpTransforms)
 list(APPEND dialect_libs MLIRCvm)
 
 target_link_libraries(mlir-proto-lsp-server

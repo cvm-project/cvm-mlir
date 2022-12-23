@@ -36,7 +36,7 @@ int main(int argc, char **argv) {
   llvm::InitLLVM y(argc, argv);
 
   DialectRegistry registry;
-  // registerAllDialects(registry);
+  registerAllDialects(registry);
   registerCvmDialects(registry);
 
   return failed(MlirOptMain(argc, argv, "MLIR modular optimizer driver\n",
